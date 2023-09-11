@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .er{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <form action="" method="post" novalidate>
+
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+        <p class="er">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+        {% for fm in form %}
+        {{fm.label_tag}} {{fm}} {{fm.errors|striptags}} <br><br>
+        <!-- {{ fm.label_tag }}: Yeh code field ka label (jo field ke samne likha hota hai, jaise "Username:") ko display karta hai. Isse user ko pata chalta hai ki woh kis field mein kuch enter kar raha hai.
+
+        {{ fm }}: Is code se actual field ka input element display hota hai. Yeh woh jagah hoti hai jahan user apne data enter karta hai, jaise text box ya password field.
+
+        {{ fm.errors|striptags }}: Yeh code field se judi errors ko dikhata hai, lekin un errors ko aise dikhata hai jahan HTML tags nahi hote. HTML tags ke bina error message ko display kiya jata hai.
+
+         Jab aap yeh teeno parts ek saath likhte hain, toh woh field ka label dikhata hai, fir input element dikhata hai jahan user data daal sakta hai, aur agar uss field mein koi error hai toh woh error message (bina HTML tags ke) dikhata hai. Yani, saath-saath woh cheezen jo user ko form mein interact karne mein madad karti hain, dikhata hai.
+
+ -->
+    
+        {% endfor %}
+
+        <input type="submit" value="login">
+    </form>
+    <a href="{% url 'signup' %}">signup</a>
+
+    
+</body>
+</html>
